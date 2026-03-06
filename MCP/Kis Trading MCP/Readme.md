@@ -34,6 +34,45 @@
 - Docker 20.10+
 - 한국투자증권 OPEN API 계정
 
+## Docker 설치
+
+### macOS
+```bash
+# Homebrew 사용 (권장)
+brew install --cask docker
+
+# 또는 공식 인스톨러 다운로드
+# https://www.docker.com/products/docker-desktop/
+```
+
+### Linux (Ubuntu/Debian)
+```bash
+# 공식 스크립트 사용 (권장)
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# 사용자를 docker 그룹에 추가
+sudo usermod -aG docker $USER
+```
+
+### Windows
+
+1. **시스템 요구사항 확인**
+   - Windows 10/11 Pro, Enterprise, Education
+   - WSL2 또는 Hyper-V 지원
+
+2. **Docker Desktop 설치**
+   - [공식 사이트](https://www.docker.com/products/docker-desktop/)에서 다운로드
+   - 설치 중 "Use WSL 2" 옵션 선택 권장
+
+3. **설치 후 확인**
+   ```cmd
+   docker --version
+   docker run hello-world
+   ```
+
+**Windows 상세 설치 가이드**: [Docker 공식 문서](https://docs.docker.com/desktop/install/windows-install/) 참조
+
 ## 설치 및 실행
 
 ### 1단계: 프로젝트 클론
