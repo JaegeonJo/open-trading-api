@@ -84,16 +84,30 @@ cd "open-trading-api/MCP/Kis Trading MCP"
 
 ### 2단계: 한국투자증권 API 정보 준비
 
-한국투자증권 개발자 센터에서 발급받은 정보를 준비하세요:
+[한국투자증권 개발자 센터](https://apiportal.koreainvestment.com/)에서 API 키를 발급받아야 합니다.
+
+**발급 절차:**
+1. [한국투자증권 개발자 센터](https://apiportal.koreainvestment.com/)에 접속하여 회원가입/로그인
+2. **[API 신청]** 메뉴에서 실전도메인 또는 모의도메인 API 신청
+3. 신청 완료 후 **App Key**와 **App Secret**이 발급됨
+4. **[계좌 관리]** 메뉴에서 API 연동할 계좌번호 확인
 
 **필수 정보:**
-- App Key (실전용)
-- App Secret (실전용)
-- 계좌 정보
+| 항목 | 설명 | 예시 |
+|------|------|------|
+| App Key | API 인증 키 | `PSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` |
+| App Secret | API 인증 시크릿 | `aCxxxxxxxxxxxxxxxxxxxxxxxx...` |
+| HTS ID | 한국투자증권 HTS 아이디 | `홍길동` |
+| 계좌번호 | 주식 거래용 계좌번호 (8자리) | `12345678` |
+| 상품유형 | 계좌 상품유형 코드 | `01` |
 
-**선택 정보:**
-- App Key (모의용)
-- App Secret (모의용)
+**선택 정보 (모의투자):**
+| 항목 | 설명 |
+|------|------|
+| Paper App Key | 모의투자용 API 인증 키 |
+| Paper App Secret | 모의투자용 API 인증 시크릿 |
+
+> 모의투자 API는 별도로 신청해야 하며, 실전 투자 전 모의투자로 충분히 테스트하는 것을 권장합니다.
 
 ---
 
