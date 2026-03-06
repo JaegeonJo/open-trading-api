@@ -3,8 +3,7 @@
 
 # 한국투자증권 OPEN API MCP 서버
 
-한국투자증권의 다양한 금융 API를 Claude Desktop 등 MCP 클라이언트에서 쉽게 사용할 수 있도록 하는 MCP 서버입니다.
-로컬(uv) 실행과 Docker 실행을 모두 지원합니다.
+한국투자증권의 다양한 금융 API를 Docker를 통해 Claude Desktop 등 MCP 클라이언트에서 쉽게 사용할 수 있도록 하는 MCP 서버입니다.
 
 ## 주요 기능
 
@@ -32,9 +31,7 @@
 
 ## 요구사항
 
-- Python 3.13+
-- [uv](https://docs.astral.sh/uv/) (로컬 실행 시)
-- Docker 20.10+ (Docker 실행 시)
+- Docker 20.10+
 - 한국투자증권 OPEN API 계정
 
 ## 설치 및 실행
@@ -61,70 +58,13 @@ cd "open-trading-api/MCP/Kis Trading MCP"
 
 ---
 
-### 방법 A: 로컬 실행 (uv)
-
-#### 의존성 설치
-
-```bash
-uv sync
-```
-
-#### 환경 설정
-
-`.env.live` 파일에서 MCP 전송 모드를 설정할 수 있습니다:
-
-```dotenv
-MCP_TYPE=sse           # stdio | sse | streamable-http
-MCP_HOST=0.0.0.0
-MCP_PORT=3000
-MCP_PATH=/sse
-```
-
-#### 서버 실행
-
-```bash
-ENV=live uv run python server.py
-```
-
-#### Claude Desktop 연동 (stdio 모드)
-
-`MCP_TYPE=stdio`로 설정한 경우, Claude Desktop 설정 파일에 다음과 같이 등록합니다:
-
-**설정 파일 위치:**
-- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-
-```json
-{
-  "mcpServers": {
-    "kis-trade-mcp": {
-      "command": "uv",
-      "args": ["run", "python", "server.py"],
-      "cwd": "/path/to/open-trading-api/MCP/Kis Trading MCP",
-      "env": {
-        "ENV": "live",
-        "KIS_APP_KEY": "your_app_key",
-        "KIS_APP_SECRET": "your_app_secret",
-        "KIS_HTS_ID": "your_hts_id",
-        "KIS_ACCT_STOCK": "your_account_number",
-        "KIS_PROD_TYPE": "01"
-      }
-    }
-  }
-}
-```
-
----
-
-### 방법 B: Docker 실행
-
-#### Docker 이미지 빌드
+### 3단계: Docker 이미지 빌드
 
 ```bash
 docker build -t kis-trade-mcp .
 ```
 
-#### run_docker.sh로 실행 (권장)
+### 4단계: run_docker.sh로 컨테이너 실행
 
 `run_docker.sh` 스크립트를 사용하면 간편하게 컨테이너를 실행할 수 있습니다.
 
@@ -154,7 +94,7 @@ chmod +x run_docker.sh
 
 > **주의**: `run_docker.sh`에 실제 API 키를 입력한 뒤에는 절대 Git에 커밋하지 마세요.
 
-#### 컨테이너 상태 확인
+### 5단계: 컨테이너 상태 확인
 
 ```bash
 # 상태 확인
@@ -170,9 +110,13 @@ docker logs -f kis-trade-mcp
 curl http://localhost:3000/sse
 ```
 
-#### Claude Desktop 연동 (SSE 모드)
+### 6단계: Claude Desktop 연동
 
-Docker 컨테이너가 실행 중일 때, Claude Desktop 설정 파일에 다음과 같이 등록합니다:
+Docker 컨테이너가 실행 중일 때, Claude Desktop 설정 파일에 MCP 서버를 등록합니다.
+
+**설정 파일 위치:**
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
 {
@@ -185,7 +129,7 @@ Docker 컨테이너가 실행 중일 때, Claude Desktop 설정 파일에 다음
 }
 ```
 
-#### 컨테이너 관리
+### 컨테이너 관리
 
 ```bash
 docker start kis-trade-mcp      # 시작
@@ -239,10 +183,6 @@ curl http://localhost:3000/sse
 
 **의존성 문제:**
 ```bash
-# 로컬
-uv sync --reinstall
-
-# Docker
 docker build --no-cache -t kis-trade-mcp .
 ```
 
