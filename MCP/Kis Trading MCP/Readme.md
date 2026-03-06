@@ -86,10 +86,33 @@ docker run -d \
   kis-trade-mcp
 ```
 
+**macOS / Linux:**
 ```bash
-# 2. 실행 권한 부여 및 실행
+# 실행 권한 부여 및 실행
 chmod +x run_docker.sh
 ./run_docker.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+# Git Bash가 설치되어 있는 경우
+bash run_docker.sh
+
+# 또는 PowerShell에서 직접 실행
+docker run -d `
+  --name kis-trade-mcp `
+  -p 3000:3000 `
+  -e KIS_APP_KEY="your_app_key" `
+  -e KIS_APP_SECRET="your_app_secret" `
+  -e KIS_HTS_ID="your_hts_id" `
+  -e KIS_PROD_TYPE="01" `
+  -e KIS_ACCT_STOCK="your_account_number" `
+  kis-trade-mcp
+```
+
+**Windows (명령 프롬프트 / cmd):**
+```cmd
+docker run -d --name kis-trade-mcp -p 3000:3000 -e KIS_APP_KEY="your_app_key" -e KIS_APP_SECRET="your_app_secret" -e KIS_HTS_ID="your_hts_id" -e KIS_PROD_TYPE="01" -e KIS_ACCT_STOCK="your_account_number" kis-trade-mcp
 ```
 
 > **주의**: `run_docker.sh`에 실제 API 키를 입력한 뒤에는 절대 Git에 커밋하지 마세요.
