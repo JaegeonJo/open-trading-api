@@ -5,7 +5,7 @@ description = "한국투자증권 OPEN API MCP 서버 - LLM이 쉽게 사용할 
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fastmcp>=2.11.2",
+    "fastmcp>=2.11.2,<3",
     "pandas>=2.3.1",
     "pycryptodome>=3.23.0",
     "pydantic>=2.11.7",

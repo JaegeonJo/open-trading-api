@@ -80,11 +80,9 @@ class ApiExecutor:
         for param_name, trenv_attr in matches:
             # 발견된 매핑을 그대로 사용 (완전 자동화!)
             trenv_value = f'ka._TRENV.{trenv_attr}'
-            
-            # 소문자 버전 (함수 파라미터)
+
+            # 소문자 버전만 사용 (함수 파라미터는 소문자)
             dynamic_mappings[param_name] = trenv_value
-            # 대문자 버전 (API 파라미터) 
-            dynamic_mappings[param_name.upper()] = trenv_value
             
             discovered_mappings.append(f"{param_name}=xxx.{trenv_attr}")
         
@@ -111,7 +109,7 @@ class ApiExecutor:
             code = re.sub(r"import sys\n", "", code)  # import sys도 제거
 
             # 2. 코드에서 함수명과 시그니처 추출
-            function_match = re.search(r'def\s+(\w+)\s*\((.*?)\):', code, re.DOTALL)
+            function_match = re.search(r'def\s+(\w+)\s*\((.*?)\)\s*(?:->.*?)?:', code, re.DOTALL)
             if not function_match:
                 raise Exception("코드에서 함수를 찾을 수 없습니다.")
 
